@@ -16,5 +16,7 @@ namespace ClashOfTheCharacters.Models
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<TeamMember> TeamMembers { get; set; }
     }
 }
