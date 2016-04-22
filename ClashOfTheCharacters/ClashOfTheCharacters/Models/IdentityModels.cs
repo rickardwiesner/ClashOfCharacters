@@ -29,5 +29,7 @@ namespace ClashOfTheCharacters.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Player> Players { get; set; }
     }
 }
