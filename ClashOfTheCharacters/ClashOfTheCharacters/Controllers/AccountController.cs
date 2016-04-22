@@ -157,9 +157,9 @@ namespace ClashOfTheCharacters.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var player = new Player { ApplicationUserId = user.Id, Gold = 100, Rank = 100, Stamina = 50 };
-                    db.Players.Add(player);
-                    db.SaveChanges();
+                    //var player = new Player { ApplicationUserId = user.Id, Gold = 100, Rank = 100, Stamina = 50 };
+                    //db.Players.Add(player);
+                    //db.SaveChanges();
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

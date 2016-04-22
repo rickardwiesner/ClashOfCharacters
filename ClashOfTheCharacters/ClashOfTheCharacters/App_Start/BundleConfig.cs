@@ -25,6 +25,7 @@ namespace ClashOfTheCharacters
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/character.css",
                       "~/Content/site.css"));
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,15 +9,17 @@ namespace ClashOfTheCharacters.Models
     public class TeamMember
     {
         public int Id { get; set; }
-
         public int Level { get; set; }
-        public int PlayerId { get; set; }
-        public Player Player { get; set; }
+        public int Xp { get; set; }
+
+        [Required]
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public int CharacterId { get; set; }
-        public Character Character { get; set; }
+        public virtual Character Character { get; set; }
 
-        public int Attack
+        public int Damage
         {
             get
             {
@@ -37,6 +40,22 @@ namespace ClashOfTheCharacters.Models
             get
             {
                 return Convert.ToInt32(Level * Character.HpMultiplier + Character.BaseHp);
+            }
+        }
+
+        public int Worth
+        {
+            get
+            {
+                return Convert.ToInt32((Character.Price * 0.5) + (Level * 5));
+            }
+        }
+
+        public int MaxXp
+        {
+            get
+            {
+                return 50 + Level / 2 * 6 * Level;
             }
         }
     }

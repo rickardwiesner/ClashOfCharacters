@@ -1,0 +1,102 @@
+﻿@using ClashOfTheCharacters.Models;
+
+@model IEnumerable<ApplicationUser>
+
+@{
+    ViewBag.Title = "Home Page";
+
+    IEnumerable<Challenge> challenges = ViewBag.Challenges;
+    IEnumerable<Battle> battles = ViewBag.Battles;
+    var userId = ViewBag.UserId;
+}
+
+<h3>Battles</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Challenger</th>
+            <th>Receiver</th>
+            <th>Starting</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var battle in battles)
+        {
+            <tr>
+                <td>@battle.Challenge.Challenger.UserName</td>
+                <td>@battle.Challenge.Receiver.UserName</td>
+                @*<td class="text-right">@(DateTime.Now.Subtract(@battle.StartTime.TimeOfDay).Minute)m</td>*@
+                <td>@battle.StartTime</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<h3>Sent Challenges</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Rank</th>
+            <th class="text-right">Cancel</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var challenge in challenges.Where(c => c.ChallengerId == userId && c.Accepted == false))
+        {
+            <tr>
+                <td>@challenge.Receiver.UserName</td>
+                <td>@challenge.Receiver.Rank</td>
+                <td class="text-right">@Html.ActionLink("Cancel", "Cancel", new { challengeId = challenge.Id })</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<h3>Received Challenges</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Rank</th>
+            <th class="text-right">Accept</th>
+            <th class="text-right">Decline</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var challenge in challenges.Where(c => c.ReceiverId == userId))
+        {
+            <tr>
+                <td>@challenge.Challenger.UserName</td>
+                <td>@challenge.Challenger.Rank</td>
+                <td class="text-right">@Html.ActionLink("Accept", "Accept", new { challengeId = challenge.Id })</td>
+                <td class="text-right">@Html.ActionLink("Decline", "Cancel", new { challengeId = challenge.Id })</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<h3>Users</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Rank</th>
+            <th class="text-right">Challenge</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Rank</td>
+                <td class="text-right">@Html.ActionLink("Challenge", "Challenge", new { opponentId = user.Id })</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

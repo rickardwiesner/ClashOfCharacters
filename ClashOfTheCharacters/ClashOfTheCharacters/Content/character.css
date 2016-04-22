@@ -1,0 +1,40 @@
+﻿.gamecard {
+    background-image: url(http://www.teamliquid.net/staff/Meko/spl/background.jpg);
+    background-size: cover;
+    border: 1px solid black;
+    margin-top: 30px;
+    font-family: Gabriola;
+    text-transform: uppercase;
+    min-height: 580px;
+}
+
+.gamecard p {
+    font-size: 24px;
+    color: black;
+}
+
+.gamecard-image {
+    border: 2px solid black;
+}
+
+.gamecard-element {
+    height: 30px;
+    width: 30px;
+    margin-top: 15px;
+    float: right;
+}
+
+.gamecard-xpbar {
+    background-color: darkblue;
+    padding-bottom: 1px;
+    height: 20px; 
+}
+
+.gamecard-xpbar div {
+    background-color: dodgerblue;
+    height: 100%;  
+}
+
+.gamecard-xpbar span {
+    color: white;
+}

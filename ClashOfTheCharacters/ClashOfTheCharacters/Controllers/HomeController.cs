@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClashOfTheCharacters.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,13 @@ namespace ClashOfTheCharacters.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            return View();
+            //var userId = User.Identity.GetUserId();
+
+            return View(db.Users.ToList());
         }
 
         public ActionResult About()

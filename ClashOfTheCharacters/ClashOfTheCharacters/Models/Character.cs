@@ -9,11 +9,8 @@ namespace ClashOfTheCharacters.Models
     public class Character
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public Element Element { get; set; }
-
         public string ImageUrl { get; set; }
         public int Price { get; set; }
 

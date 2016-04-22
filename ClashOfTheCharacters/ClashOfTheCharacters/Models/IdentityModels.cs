@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace ClashOfTheCharacters.Models
 {
@@ -16,6 +17,12 @@ namespace ClashOfTheCharacters.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public int Stamina { get; set; }
+        public int Gold { get; set; }
+        public int Rank { get; set; }
+        public virtual ICollection<TeamMember> TeamMembers { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -30,8 +37,10 @@ namespace ClashOfTheCharacters.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Player> Players { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<Challenge> Challenges { get; set; }
+        public DbSet<Battle> Battles { get; set; }
+        public DbSet<Attack> Attacks { get; set; }
     }
 }

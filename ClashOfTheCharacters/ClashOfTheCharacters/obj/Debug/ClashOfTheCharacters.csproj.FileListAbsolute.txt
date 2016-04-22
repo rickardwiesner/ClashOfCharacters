@@ -69,3 +69,10 @@ C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheC
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\obj\Debug\ClashOfTheCharacters.pdb
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\obj\Debug\ClashOfTheCharacters.Migrations.InitialCreate.resources
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\obj\Debug\ClashOfTheCharacters.csproj.GenerateResource.Cache
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Google.Apis.Core.dll
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\log4net.dll
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Zlib.Portable.dll
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Google.Apis.Core.pdb
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Google.Apis.Core.xml
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\log4net.xml
+C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Zlib.Portable.xml
