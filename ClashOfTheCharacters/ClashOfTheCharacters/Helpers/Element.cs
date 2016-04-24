@@ -8,8 +8,13 @@ namespace ClashOfTheCharacters.Helpers
     public enum Element
     {
         Fire,
+        Nature,
         Air,
+        Light,
         Earth,
-        Water
+        Darkness,
+        Water,
+        Polution,
+        Gravity
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,7 +18,18 @@ namespace ClashOfTheCharacters.Controllers
         {
             var userId = User.Identity.GetUserId();
             var challenges = db.Challenges.Where(c => c.ChallengerId == userId || c.ReceiverId == userId && c.Accepted == false).ToList();
-            var battles = db.Battles.Where(b => b.Challenge.ChallengerId == userId || b.Challenge.ReceiverId == userId /*&& DateTime.Now.Subtract(b.StartTime.TimeOfDay.Minutes) > 0*/).ToList();
+            var battles = db.Battles.Where(b => b.Challenge.ChallengerId == userId || b.Challenge.ReceiverId == userId).ToList();
+
+            foreach (var battle in db.Battles.Where(b => b.Calculated != true).ToList())
+            {
+                if(battle.Aired == true)
+                {
+                    battle.CalculateBattle();
+                    battle.Calculated = true;
+                }
+            }
+
+            db.SaveChanges();
 
             ViewBag.UserId = userId;
             ViewBag.Challenges = challenges;
@@ -26,11 +38,11 @@ namespace ClashOfTheCharacters.Controllers
             return View(db.Users.ToList());
         }
 
-        public ActionResult Challenge(string opponentId)
+        public ActionResult Challenge(string id)
         {
             var userId = User.Identity.GetUserId();
 
-            if(userId != opponentId)
+            if(userId != id && id != null)
             {
                 var user = db.Users.Find(userId);
 
@@ -38,7 +50,7 @@ namespace ClashOfTheCharacters.Controllers
                 {
                     user.Stamina -= 7;
 
-                    var challenge = new Challenge { ChallengerId = userId, ReceiverId = opponentId };
+                    var challenge = new Challenge { ChallengerId = userId, ReceiverId = id };
 
                     db.Challenges.Add(challenge);
                     db.SaveChanges();

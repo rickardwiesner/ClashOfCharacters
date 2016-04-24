@@ -5,12 +5,15 @@
 
 @{
     ViewBag.Title = "Index";
+    int counter = 0;
 }
 
 <div class="container">
     <div class="row">
         @foreach (var teamMember in Model)
         {
+            counter++;
+
             <div class="col-md-4 col-sm-6">
                 <div class="col-md-12 gamecard">
                     <div class="col-md-9 col-xs-9">
@@ -31,6 +34,11 @@
                     <p>Hp: @teamMember.Hp</p>
                 </div>
             </div>
+
+            if (counter % 2 == 0)
+            {
+                <div class="clearfix visible-sm"></div>
+            }
         }
 
         @for (int i = 0; i < 6 - Model.Count(); i++)

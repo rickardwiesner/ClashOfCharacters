@@ -1,4 +1,5 @@
-﻿@using ClashOfTheCharacters.Models;
+﻿@using ClashOfTheCharacters.Helpers;
+@using ClashOfTheCharacters.Models;
 
 @model IEnumerable<ApplicationUser>
 
@@ -8,25 +9,97 @@
     IEnumerable<Challenge> challenges = ViewBag.Challenges;
     IEnumerable<Battle> battles = ViewBag.Battles;
     var userId = ViewBag.UserId;
+
+    <link href="~/Content/jquery.fancybox.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <script src="~/Scripts/fancybox-custom.js"></script>
 }
 
-<h3>Battles</h3>
+<h3>Finished Battles</h3>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Challenger</th>
             <th>Receiver</th>
-            <th>Starting</th>
+            <th>Result</th>
+            <th>Ranking Points</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var battle in battles)
+        @foreach (var battle in battles.Where(b => b.StartTime.CompareTo(DateTime.Now) < 0).OrderByDescending(b => b.StartTime).Take(10))
         {
             <tr>
                 <td>@battle.Challenge.Challenger.UserName</td>
                 <td>@battle.Challenge.Receiver.UserName</td>
-                @*<td class="text-right">@(DateTime.Now.Subtract(@battle.StartTime.TimeOfDay).Minute)m</td>*@
-                <td>@battle.StartTime</td>
+                <td>
+                    <a class="fancybox" href="#Result-@battle.Id"><span class="fa fa-2x fa-eye"></span></a>
+
+                    @*Result Box*@
+                    <div class="fancybox-hidden" id="Result-@battle.Id">
+
+                        <h3 class="text-center">Result</h3>
+                        <hr />
+                        <div class="container">
+                            <div class="row">
+
+                                @foreach (var attack in battle.Attacks)
+                                {
+                                    <div class="container col-md-12">
+                                        <div class="col-md-3 col-xs-3">
+                                            <a href="#">
+                                                <img class="img-circle img-50x50" src="@attack.Attacker.Character.ImageUrl" />
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Damage: @attack.Damage</p>
+                                            <p>Hp: @attack.HpRemaining / @attack.Defender.Hp</p>
+                                            <p>@Helper.GetEffect(attack.Effect)</p>
+                                        </div>
+                                        <div class="col-md-3 col-xs-3">
+                                            <a href="#">
+                                                <img class="img-circle img-50x50" src="@attack.Defender.Character.ImageUrl" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @if (battle.WinnerId == userId)
+                    {
+                        <h4 class="text-success">@battle.WinnerRankingPoints</h4>
+                    }
+
+                    else
+                    {
+                        <h4 class="text-danger">@battle.LoserRankingPoints</h4>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<h3>On Going</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Challenger</th>
+            <th>Receiver</th>
+            <th class="text-right">Starting</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var battle in battles.Where(b => b.StartTime.CompareTo(DateTime.Now) > 0))
+        {
+            <tr>
+                <td>@battle.Challenge.Challenger.UserName</td>
+                <td>@battle.Challenge.Receiver.UserName</td>
+                <td class="text-right">@(battle.StartTime.Subtract(DateTime.Now.TimeOfDay).Minute + 1)m</td>
             </tr>
         }
 
@@ -85,7 +158,7 @@
         <tr>
             <th>Username</th>
             <th>Rank</th>
-            <th class="text-right">Challenge</th>
+            <th>Challenge</th>
         </tr>
     </thead>
     <tbody>
@@ -94,7 +167,7 @@
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.Rank</td>
-                <td class="text-right">@Html.ActionLink("Challenge", "Challenge", new { opponentId = user.Id })</td>
+                <td><a href="/Battle/Challenge/@user.Id"><span class="fa fa-2x fa-send"></span></a></td>
             </tr>
         }
 

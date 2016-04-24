@@ -5,7 +5,7 @@
     margin-top: 30px;
     font-family: Gabriola;
     text-transform: uppercase;
-    min-height: 580px;
+    /*min-height: 590px;*/
 }
 
 .gamecard p {
@@ -26,8 +26,8 @@
 
 .gamecard-xpbar {
     background-color: darkblue;
-    padding-bottom: 1px;
     height: 20px; 
+    padding-bottom: 1px;
 }
 
 .gamecard-xpbar div {
@@ -37,4 +37,10 @@
 
 .gamecard-xpbar span {
     color: white;
+}
+
+.gamecard-select {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }

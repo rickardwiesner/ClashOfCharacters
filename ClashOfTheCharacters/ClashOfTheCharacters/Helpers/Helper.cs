@@ -32,5 +32,43 @@ namespace ClashOfTheCharacters.Helpers
         {
             return Convert.ToString(Convert.ToDecimal(xp) / Convert.ToDecimal(maxXp) * 100).Replace(",", ".");
         }
+
+        static public string GetTime(DateTime dateTime)
+        {
+            if ((DateTime.Now.Subtract(dateTime.TimeOfDay).Minute < 1))
+            {
+                return string.Format("{0}{1}", dateTime.Subtract(DateTime.Now.TimeOfDay).Second, "s");
+            }
+
+            else
+            {
+                return string.Format("{0}{1}", dateTime.Subtract(DateTime.Now.TimeOfDay).Minute, "m");
+
+            }
+        }
+
+        static public string GetEffect(Effect effect)
+        {
+            switch (effect)
+            {
+                case Effect.VeryBad:
+                    return "Not effective at all";
+
+                case Effect.Bad:
+                    return "Not effective";
+
+                case Effect.Good:
+                    return "Effective";
+
+                case Effect.VeryGood:
+                    return "Very effective";
+
+                case Effect.GravityAttack:
+                    return "Quite effective";
+
+                default:
+                    return "Normal";
+            }
+        }
     }
 }
