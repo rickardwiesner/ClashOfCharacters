@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace ClashOfTheCharacters.Models
 {
@@ -21,8 +22,17 @@ namespace ClashOfTheCharacters.Models
         }
 
         public int Stamina { get; set; }
+
+        public int MaxStamina { get; set; }
+
         public int Gold { get; set; }
+
         public int Rank { get; set; }
+
+        public DateTimeOffset LastStaminaTime { get; set; }
+
+        //public bool StaminaIsRefilling { get; set; }
+
         public virtual ICollection<TeamMember> TeamMembers { get; set; }
 
     }
@@ -44,5 +54,8 @@ namespace ClashOfTheCharacters.Models
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<Battle> Battles { get; set; }
         public DbSet<Attack> Attacks { get; set; }
+        //public DbSet<BattleReward> BattleRewards { get; set; }
+        public DbSet<Competitor> Competitors { get; set; }
+        public DbSet<BattleCharacter> BattleCharacters { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ClashOfTheCharacters.Models;
+using ClashOfTheCharacters.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,24 +13,23 @@ namespace ClashOfTheCharacters.Controllers
     [Authorize]
     public class BattleController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
             var challenges = db.Challenges.Where(c => c.ChallengerId == userId || c.ReceiverId == userId && c.Accepted == false).ToList();
             var battles = db.Battles.Where(b => b.Challenge.ChallengerId == userId || b.Challenge.ReceiverId == userId).ToList();
 
-            foreach (var battle in db.Battles.Where(b => b.Calculated != true).ToList())
-            {
-                if(battle.Aired == true)
-                {
-                    battle.CalculateBattle();
-                    battle.Calculated = true;
-                }
-            }
+            var battleService = new BattleService();
+            battleService.RunBattles();
 
-            db.SaveChanges();
+            if (user.Stamina < user.MaxStamina)
+            {
+                var staminaService = new StaminaService();
+                staminaService.UpdateStamina(userId);
+            }
 
             ViewBag.UserId = userId;
             ViewBag.Challenges = challenges;
@@ -41,14 +41,19 @@ namespace ClashOfTheCharacters.Controllers
         public ActionResult Challenge(string id)
         {
             var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
 
-            if(userId != id && id != null)
+            if (user.TeamMembers.Count == 0)
             {
-                var user = db.Users.Find(userId);
+                return RedirectToAction("Select", "Character");
+            }
 
-                if (user.Stamina >= 7)
+            if (userId != id && id != null)
+            {
+
+                if (user.Stamina >= 6 && db.Challenges.Count(c => c.ChallengerId == userId && c.ReceiverId == id && c.Accepted == false) < 2)
                 {
-                    user.Stamina -= 7;
+                    user.Stamina -= 6;
 
                     var challenge = new Challenge { ChallengerId = userId, ReceiverId = id };
 
@@ -56,13 +61,20 @@ namespace ClashOfTheCharacters.Controllers
                     db.SaveChanges();
                 }
             }
-            
+
             return RedirectToAction("Index");
         }
 
         public ActionResult Accept(int challengeId)
         {
             var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+
+            if (user.TeamMembers.Count == 0)
+            {
+                return RedirectToAction("Select", "Character");
+            }
+
             var battle = new Battle { ChallengeId = challengeId, StartTime = DateTime.Now.AddMinutes(2) };
 
             db.Challenges.Find(challengeId).Accepted = true;
@@ -77,7 +89,7 @@ namespace ClashOfTheCharacters.Controllers
             var userId = User.Identity.GetUserId();
 
             var challenge = db.Challenges.Find(challengeId);
-            challenge.Challenger.Stamina += 7;
+            challenge.Challenger.Stamina += 6;
 
             db.Challenges.Remove(challenge);
             db.SaveChanges();

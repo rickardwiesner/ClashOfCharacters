@@ -27,6 +27,7 @@ namespace ClashOfTheCharacters
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/character.css",
+                      "~/Content/battle.css",
                       "~/Content/site.css"));
         }
     }
