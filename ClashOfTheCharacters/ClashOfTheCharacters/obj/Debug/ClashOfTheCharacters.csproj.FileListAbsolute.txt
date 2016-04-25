@@ -32,7 +32,6 @@ C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheC
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Microsoft.Owin.Security.OAuth.dll
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Microsoft.Owin.Security.Twitter.dll
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Newtonsoft.Json.dll
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\Owin.dll
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\System.Web.Helpers.dll
 C:\Users\Studerande\Documents\ClashOfCharacters\ClashOfTheCharacters\ClashOfTheCharacters\bin\System.Web.Mvc.dll
